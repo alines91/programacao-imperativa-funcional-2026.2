@@ -8,13 +8,11 @@ int main() {
     float cadernos = 8.00;
     float fitas = 13.05;
 
-    printf("%-12s%12.2f\n", "Lapis", lapis);
-    printf("%-12s%12.2f\n", "Borrachas", borrachas);
-    printf("%-12s%12.2f\n", "Canetas", canetas);
-    printf("%-12s%12.2f\n", "Cadernos", cadernos);
-    printf("%-12s%12.2f\n", "Fitas", fitas);
-
-    /*system pause não funciona em ambientes Linux, então removi*/
+    printf("\nLápis  %12.2f", lapis);
+    printf("\nBorrachas  %12.2f", borrachas);
+    printf("\nCanetas  %12.2f", canetas);
+    printf("\nCadernos  %12.2f", cadernos);
+    printf("\nFitas  %12.2f", fitas);
 
     return 0;
 }
