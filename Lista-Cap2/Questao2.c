@@ -15,7 +15,7 @@ robusta, ignorando eventuais quebras de linha ('\n') residuais no buffer do tecl
 
 #include <stdio.h>
 
-int main(void) {
+int main() {
     char c;
     int lixo;
 
