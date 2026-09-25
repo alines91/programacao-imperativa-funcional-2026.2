@@ -1,0 +1,13 @@
+int a = 2, b = 4, c = 5, d = 10; 
+a += b + c; // Valor final de a = 11 
+b *= c = d - 2; // Valores finais de b = 32, c = 8
+d %= a + 3; // Valor final de d = 0 
+a += b += c += 5; // Valores finais de a = 16 , b = 14 e c = 10
+
+isso se tratarmos cada linha como uma operaçao individual. 
+se levarmos em consideração modificações nas variáveis, teremos valores diferentes.
+
+a += b + c; // Valor final de a = 11 
+b *= c = d - 2; // Valores finais de b = 32, c = 8
+d %= a + 3; // Valor final de d = 10 
+a += b += c += 5; // Valores finais de a = 56 , b = 45 e c = 13

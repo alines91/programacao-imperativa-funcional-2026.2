@@ -1,0 +1,4 @@
+1. a - Não.
+b - Não. Se a palavra main for escrita com M maiúsculo, o compilador vai interpretá-la como uma função comum.
+c - Sim.
+d - Não.
