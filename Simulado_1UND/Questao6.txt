@@ -1,0 +1,51 @@
+Questão 06. Escopo de Bloco e Comandos de Desvio (break e continue) (Cap. 3) — 
+Analise o  programa abaixo que calcula a soma acumulada de quadrados dentro de um laço for contendo um  comando de 
+desvio e controle de escopo interno:
+
+#include <stdio.h> 
+#include <stdlib.h> 
+int main() { 
+ int i; 
+ for (i = 1; i <= 10; i++) { 
+ if (i == 5) continue; 
+ if (i == 8) break; 
+ int soma = 0; 
+ soma += i * i; 
+ } 
+ printf("Soma final = %d\n", soma); 
+ system("PAUSE");
+ return 0; 
+}
+
+
+
+a) Por que o compilador emitirá um erro de compilação na instrução printf final? 
+    A variável SOMA foi declarada dentro do corpo do for. Após a execução, ela deixa de existir. 
+
+b) Quais iterações do laço serão efetivamente executadas e qual o impacto dos comandos continue e  break no fluxo?
+    O primeiro if garante que o código mostre as 4 primeiras iterações, fazendo com que o comando CONTINUE pule o 5.
+    Logo em seguida, o código continua rodando com a iteração 6, a 7, e para ao chegar no 8, que é o indicado no segundo 
+    if com o comando BREAK. 9 e 10 nunca chegam a rodar.
+
+c) Reescreva o código corrigindo o escopo de 'soma' e apresente o resultado que será impresso no  console. 
+    Devemos declarar a variável SOMA fora do laço, e adicionar o incremento/modificação dentro do laço.
+    O código reescrito:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int i;
+    int soma = 0;   // declarada FORA do for
+
+    for (i = 1; i <= 10; i++) {
+        if (i == 5) continue;
+        if (i == 8) break;
+        soma += i * i;
+    }
+
+    printf("Soma final = %d\n", soma);
+    system("PAUSE");
+    return 0;
+}
+
