@@ -1,0 +1,47 @@
+Questão 02. Escopo e Tempo de Vida de Variáveis de Bloco — Um estudante escreveu o
+programa abaixo com o intuito de calcular a soma dos quadrados dos números inteiros de 1 a 9,
+mas encontrou falhas durante a compilação e execução:
+#include <stdio.h>
+
+Cesar School | Programação Imperativa e Funcional | Página 2
+
+#include <stdlib.h>
+int main() {
+int i;
+for (i = 1; i < 10; i++) {
+int soma = 0;
+soma += i * i;
+}
+printf("Soma final = %d\n", soma);
+system("PAUSE");
+return 0;
+}
+a) Por que o compilador emitirá um erro de sintaxe/declaração na instrução printf final?
+    Porque a variável soma foi declarada dentro do bloco do for (entre as chaves { }). 
+    Em C, uma variável declarada dentro de um bloco só existe e só é visível dentro desse bloco. 
+    Quando o laço termina, o bloco acaba e soma deixa de existir.
+
+b) Mesmo que a instrução printf fosse movida para dentro do bloco do laço for, por que o
+valor impresso para soma estaria conceitualmente incorreto a cada iteração?
+    Porque a linha int soma = 0; está dentro do laço, então a cada iteração a variável é criada de novo e zerada. 
+    O soma += i * i; acumula em cima de 0 todas as vezes, e no fim da iteração a variável é destruída.
+    Resultado: o valor impresso em cada iteração seria só o quadrado do i atual,  e não a soma acumulada. Nada é 
+    acumulado de uma iteração pra outra.
+
+c) Apresente o código corrigido e explique o conceito de visibilidade, escopo de bloco e tempo
+de vida de variáveis na linguagem C.
+    #include <stdio.h>
+    #include <stdlib.h>
+
+    int main() {
+        int i;
+        int soma = 0;  
+
+        for (i = 1; i < 10; i++) {
+            soma += i * i;
+        }
+
+        printf("Soma final = %d\n", soma);
+        system("PAUSE");
+        return 0;
+    }
