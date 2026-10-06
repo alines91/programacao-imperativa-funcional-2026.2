@@ -1,0 +1,30 @@
+Questão 06. Laço Sem Corpo e Incremento Pós-fixado — Analise o trecho de código abaixo
+que utiliza um laço de repetição com corpo vazio:
+int x = 0;
+while (x++ < 5);
+printf("Valor final de x = %d\n", x);
+
+a) Qual é o valor final da variável x que será impresso pela instrução printf?
+    x = 6
+
+b) Explique passo a passo a sequência de incrementos e comparações lógicas que ocorrem
+durante a execução do teste 'x++ < 5'.
+    1º	0 < 5	verdadeiro	1
+    2º	1 < 5	verdadeiro	2
+    3º	2 < 5	verdadeiro	3
+    4º	3 < 5	verdadeiro	4
+    5º	4 < 5	verdadeiro	5
+    6º	5 < 5	falso	6
+
+
+c) Reescreva esse código de forma explícita e clara (sem corpo vazio), mantendo exatamente o
+mesmo resultado final de x.
+
+    int x = 0;
+
+    while (x < 5) {
+        x++;
+    }
+    x++;   // o incremento extra do teste que falhou
+
+    printf("Valor final de x = %d\n", x);

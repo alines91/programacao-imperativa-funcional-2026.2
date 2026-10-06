@@ -1,0 +1,19 @@
+Questão 04. Comandos de Desvio de Fluxo: break vs. continue — Os comandos break e
+continue são instruções de controle de desvio que alteram a execução normal de laços de
+repetição:
+a) Descreva a ação exata executada pelo programa quando o comando break é acionado
+dentro de um laço for ou while.
+    O comando break interrompe a execução do laço.
+
+b) Descreva a ação exata executada pelo programa quando o comando continue é acionado
+dentro de um laço for. Qual das três expressões do cabeçalho do for é executada
+imediatamente após o continue?
+    O continue faz com que apenas o próximo laço seja pulado, continuando a execução normalmente.
+    No for, o incremendo é executado após o continue. Só depois disso vem o teste da condição, que decide se vai ter 
+    uma nova iteração. A inicialização roda só uma vez, no começo.
+
+
+c) Em uma estrutura de laços aninhados (um laço for interno dentro de outro laço for externo),
+qual laço é interrompido quando a instrução break é executada dentro do laço interno?
+    O break interrompe apenas o laço interno, aquele em que ele está. O laço externo continua normalmente, passando 
+    para a próxima iteração. 
