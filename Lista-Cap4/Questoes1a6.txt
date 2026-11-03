@@ -1,0 +1,186 @@
+Questão 1: 
+a) Escrever if (x = 0) em vez de if (x == 0) é um erro clássico. O = é o operador de atribuição, não de comparação. Então o que acontece é:
+ 
+1. O valor 0 é atribuído a x (ou seja, x perde o valor que tinha antes e passa a valer 0).
+2. O resultado da expressão x = 0 é o próprio valor atribuído, que é 0.
+3. Como 0 é interpretado como falso, o bloco do if nunca é executado (se existir else, ele é que roda).
+ 
+Já o x == 0 só compara, sem mexer no valor de x.
+ 
+b) Na linguagem C não existe um tipo lógico "de verdade" na condição do if. Qualquer valor numérico (inteiro, real ou caractere) pode ser usado:
+ 
+- valor igual a zero (0, 0.0, '\0') = falso;
+- qualquer valor diferente de zero (1, -5, 3.14, 'A') = verdadeiro.
+ 
+Os operadores relacionais e lógicos (>, ==, &&, ! etc.) também seguem essa lógica: o resultado deles é 1 quando verdadeiro e 0 quando falso.
+ 
+c) Em if (x = -5), primeiro o valor -5 é atribuído a x, e o valor da expressão inteira é -5. Como -5 é diferente de zero, a condição é considerada verdadeira e o bloco será executado.
+ 
+Isso é o que o padrão ANSI C define: o primeiro comando do if é executado se a expressão de controle for diferente de zero. Só o valor 0 é falso. O sinal negativo não importa. Além disso, x passa a valer -5 depois dessa linha.
+
+Questão 2:
+
+Código analisado:
+ 
+    int x = 15, y = 5;
+    if (x > 10)
+        if (y > 10)
+            printf("Opção A\n");
+    else
+        printf("Opção B\n");
+ 
+a) Será impresso:
+ 
+    Opção B
+ 
+A indentação engana: ela faz parecer que o else é do primeiro if, mas o compilador ignora indentação. O else pertence ao if (y > 10), que é o mais próximo. Passo a passo: x > 10 é verdadeiro (15 > 10), então entra no if interno; y > 10 é falso (5 > 10), então o else ligado a ele é executado, e a Opção B é exibida. A Opção A não é impressa.
+ 
+b)Em C, sem chaves, o else sempre se associa ao if mais próximo que ainda não tenha um else (o mais próximo acima dele, dentro do mesmo bloco).
+ 
+c) Código reescrito com chaves:
+ 
+    int x = 15, y = 5;
+    if (x > 10) {
+        if (y > 10) {
+            printf("Opção A\n");
+        }
+    } else {
+        printf("Opção B\n");
+    }
+ 
+Agora o else está fora do bloco do if interno, então pertence ao if (x > 10). A Opção B só é impressa quando x <= 10. Com x = 15 e y = 5, não imprime nada.
+
+Questão 3:
+
+Código analisado:
+ 
+    media = (nota1 + nota2) / 2.0;
+    situacao = (media >= 7.0) ? 'A' : 'R';
+ 
+a)
+ 
+O operador ternário tem o formato: condição ? valor_se_verdadeiro : valor_se_falso. Na segunda linha, primeiro é avaliada a condição media >= 7.0. Se for verdadeira, o resultado da expressão é 'A' (Aprovado); se for falsa, é 'R' (Reprovado). Esse resultado é guardado em situacao.
+ 
+Com media = 6.8, a condição 6.8 >= 7.0 é falsa, então situacao recebe 'R'.
+ 
+b)
+ 
+Código reescrito com if-else:
+ 
+    media = (nota1 + nota2) / 2.0;
+    if (media >= 7.0) {
+        situacao = 'A';
+    } else {
+        situacao = 'R';
+    }
+ 
+c)
+ 
+Não, o ternário não substitui qualquer if-else. Ele é uma expressão (produz um valor), enquanto o if-else é um comando. As limitações principais:
+ 
+- Cada ramo do ternário precisa ser uma expressão simples que gera um valor, então não dá para executar vários comandos (vários printf, atribuições, etc.) dentro de um ramo como num bloco { }.
+- Não dá para declarar variáveis nem usar break, return ou laços dentro dele.
+- Os dois ramos precisam existir (não existe ternário sem o "senão").
+- Ternários aninhados ficam difíceis de ler.
+ 
+Ele funciona bem para escolher entre dois valores simples, mas para blocos com várias instruções o if-else é o correto.
+
+Questão 4:
+
+a)
+ 
+Saída exata:
+ 
+    Prata
+    Ouro
+ 
+Com codigo = 2, o programa entra no case 2 e imprime "Prata". Como não existe break nesse case, a execução continua para o case 3 e imprime "Ouro". Aí encontra o break e sai do switch. O default não é executado.
+ 
+b)
+ 
+O break serve para encerrar o switch e sair dele assim que o case certo terminar, evitando que os cases seguintes sejam executados. Quando ele é omitido, ocorre o efeito fall-through (queda em cascata): a execução "cai" para os cases de baixo até achar um break ou chegar ao fim do switch.
+ 
+c)
+ 
+O argumento do switch precisa ser de tipo inteiro: int, char, short, long (e variações com unsigned) e também constantes enum. Os rótulos dos case também precisam ser constantes inteiras.
+ 
+Não é permitido usar float ou double. O padrão exige tipo inteiro na expressão do switch, e além disso números reais têm problemas de precisão (por exemplo, 0.1 + 0.2 não é exatamente 0.3), o que tornaria a comparação exata dos cases pouco confiável.
+ 
+Questão 5:
+
+Código analisado:
+ 
+    int a = 0, b = 5, c = 10;
+    if (a != 0 && ++b > 5)
+        c += 10;
+    else
+        c -= 2;
+    printf("a = %d, b = %d, c = %d\n", a, b, c);
+ 
+a)
+ 
+Saída:
+ 
+    a = 0, b = 5, c = 8
+ 
+a != 0 é falso (a vale 0). Como o operador é &&, o resultado já é falso e o lado direito nem é avaliado, então o ++b foi ignorado e b continua 5. Como a condição é falsa, cai no else: c = 10 - 2 = 8.
+ 
+b)
+ 
+Avaliação de curto-circuito significa que o C para de avaliar a expressão lógica assim que o resultado final já está definido:
+ 
+- && (E): se o lado esquerdo for falso, o resultado já é falso, então o lado direito não é avaliado.
+- || (OU): se o lado esquerdo for verdadeiro, o resultado já é verdadeiro, então o lado direito não é avaliado.
+ 
+Isso é importante quando o lado direito tem efeito colateral (como ++b), porque ele pode simplesmente não acontecer.
+ 
+c)
+ 
+Com if (a == 0 || ++b > 5): a == 0 é verdadeiro, então por curto-circuito o ++b não é executado e o if é verdadeiro. Entra no bloco do if: c += 10.
+ 
+Valores finais: b = 5 e c = 20.
+
+Questão 6:
+
+Código analisado:
+ 
+    int idade = 25;
+    if (idade >= 60)
+        printf("Idoso\n");
+    if (idade >= 18)
+        printf("Adulto\n");
+    if (idade >= 12)
+        printf("Jovem\n");
+    else
+        printf("Criança\n");
+ 
+a)
+ 
+Para idade = 65, a saída é:
+ 
+    Idoso
+    Adulto
+    Jovem
+ 
+São três if independentes, e cada um é testado separadamente. 65 >= 60, 65 >= 18 e 65 >= 12 são todos verdadeiros, então as três mensagens aparecem. O else só pertence ao último if (o de 12) e por isso não roda.
+ 
+b)
+ 
+Numa sequência de if independentes, todas as condições são testadas e vários blocos podem ser executados. Numa cadeia else-if, as condições são testadas em ordem e, assim que uma for verdadeira, o bloco dela é executado e o resto da cadeia é ignorado. Ou seja, no máximo um bloco roda.
+ 
+c)
+ 
+Código reescrito com else-if:
+ 
+    int idade = 25;
+    if (idade >= 60) {
+        printf("Idoso\n");
+    } else if (idade >= 18) {
+        printf("Adulto\n");
+    } else if (idade >= 12) {
+        printf("Jovem\n");
+    } else {
+        printf("Criança\n");
+    }
+ 
+Agora só uma categoria é impressa. Para 65 imprime só "Idoso", e para 25 imprime só "Adulto".
