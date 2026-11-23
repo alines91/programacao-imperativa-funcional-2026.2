@@ -1,0 +1,19 @@
+a)
+
+#include <stdio.h>, com os sinais < >, procura o arquivo nos diretórios padrão do compilador, então usamos essa forma para as bibliotecas da própria linguagem.
+
+#include "areas.h", com aspas, procura primeiro na pasta do projeto (onde está o arquivo que estamos compilando) e, se não encontrar, procura depois nos diretórios padrão. Usamos essa forma para os nossos próprios arquivos de cabeçalho.
+
+b)
+
+O #undef SOMA remove a definição da macro SOMA. Depois dessa linha, SOMA deixa de existir para o pré-processador (não é mais substituída) e pode até ser definida de novo com outro valor.
+
+A forma #undef SOMA(x,y) está incorreta porque o #undef recebe só o nome da macro. A lista de parâmetros faz parte apenas da definição (#define), e não do #undef.
+
+c)
+
+Se DEBUG não foi definido, será impressa a mensagem "Modo normal".
+
+Essa decisão é tomada no pré-processamento, antes da compilação, porque #ifdef, #else e #endif são diretivas tratadas pelo pré-processador. Ele mantém só o ramo escolhido e descarta o outro, então o printf("Modo de depuracao") nem chega ao compilador.
+
+As diretivas não aparecem no executável final porque começam com # e são processadas e removidas pelo pré-processador antes de o compilador gerar o código de máquina. O executável só contém o resultado dessa etapa.

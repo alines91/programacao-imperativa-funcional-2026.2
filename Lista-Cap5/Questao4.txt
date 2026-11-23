@@ -1,0 +1,33 @@
+a)
+
+- Caso base: n == 0, quando a função devolve 1 e não chama mais ninguém.
+- Passo recursivo: (long)n * fatorial(n - 1), quando a função chama a si mesma com um valor menor.
+
+Se o caso base fosse removido, a função nunca teria condição de parada. Ela chamaria fatorial(-1), fatorial(-2), e assim por diante, para sempre, até a memória da pilha acabar e o programa falhar (estouro de pilha).
+
+b)
+
+Fase de empilhamento (as chamadas vão ficando esperando):
+
+    fatorial(4) -> precisa de 4 * fatorial(3)
+    fatorial(3) -> precisa de 3 * fatorial(2)
+    fatorial(2) -> precisa de 2 * fatorial(1)
+    fatorial(1) -> precisa de 1 * fatorial(0)
+    fatorial(0) -> caso base, devolve 1
+
+Fase de desempilhamento (cada chamada devolve o valor para a de baixo):
+
+    fatorial(0) devolve 1
+    fatorial(1) devolve 1 * 1 = 1
+    fatorial(2) devolve 2 * 1 = 2
+    fatorial(3) devolve 3 * 2 = 6
+    fatorial(4) devolve 4 * 6 = 24
+
+Resultado final: fatorial(4) = 24.
+
+c)
+
+A cada chamada recursiva, o programa cria na pilha de execução um novo quadro (stack frame) com a cópia do parâmetro n, as variáveis locais e o endereço de retorno. Os quadros anteriores continuam na pilha, parados, esperando a chamada de cima terminar para poderem calcular o próprio resultado. Quando chega no caso base, a recursão começa a voltar e os quadros vão sendo removidos um por um.
+
+Numa recursão sem caso base, novos quadros são empilhados sem parar. Como a pilha tem tamanho limitado, ela acaba enchendo e o programa falha (estouro de pilha, normalmente um erro de segmentação).
+

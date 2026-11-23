@@ -1,0 +1,27 @@
+a)
+
+Uma função em C devolve no máximo um valor por meio do return.
+
+Na função calcular(), o programador queria devolver dois valores ao mesmo tempo, a soma e a média, escrevendo return soma, media;. Só que isso não funciona: a vírgula ali é o operador vírgula, que avalia soma, descarta esse resultado e devolve apenas o último, que é media. Então a função devolve só a média e a soma se perde (o compilador normalmente ainda avisa que o lado esquerdo da vírgula não tem efeito). A abordagem não cumpre o objetivo porque o return não consegue devolver dois valores.
+
+b)
+
+Dentro de imprime_mensagem(), o return; encerra a função na hora e devolve o controle para quem chamou, sem executar o que vem depois dele. Então, se erro < 0, a função imprime "Erro invalido" e sai, sem imprimir "Codigo processado".
+
+Não é obrigatório colocar return; no final de uma função void. Quando a execução chega na chave } que fecha a função, ela termina sozinha. O return; só é necessário quando queremos sair mais cedo, antes do fim.
+
+c)
+
+    float calcular(int a, int b, int c) {
+        int soma = a + b + c;
+        return soma / 3.0;
+    }
+
+    int calcularSoma(int a, int b, int c) {
+        return a + b + c;
+    }
+
+Usei 3.0 na divisão para a média não sofrer truncamento de divisão inteira.
+
+Precisamos de duas funções porque o return só consegue devolver um único valor. Para entregar dois resultados diferentes (a média e a soma), cada um precisa ficar numa função separada.
+

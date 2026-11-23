@@ -1,0 +1,21 @@
+
+a)
+
+- Protótipo: float celsius(float);   (linha logo depois do #include, antes da main)
+- Chamada: c = celsius(f);   (dentro da main)
+- Definição: float celsius(float fahr) { return (fahr - 32.0) * 5.0 / 9.0; }   (depois da main)
+
+Papel de cada uma:
+- O protótipo avisa o compilador, antes de qualquer uso, que existe uma função chamada celsius, que recebe um float e devolve um float.
+- A chamada é o momento em que a função realmente é executada: o valor de f (100.0) é enviado como argumento, a função roda e o valor devolvido é guardado em c.
+- A definição é o corpo da função, ou seja, o código que de fato faz a conta da conversão de Fahrenheit para Celsius.
+
+b)
+
+O protótipo serve para o compilador conferir se a função está sendo usada do jeito certo: se a quantidade de argumentos bate, se os tipos batem e qual é o tipo do valor devolvido. Com isso ele também converte os argumentos para o tipo esperado quando precisa.
+
+Se o protótipo fosse omitido e a função fosse definida depois da main, o compilador chegaria na chamada celsius(f) sem conhecer a função. Em C antigo (C89) ele assumiria que a função devolve int e não conferiria nenhum parâmetro, e depois, ao encontrar a definição com float, daria erro de tipos conflitantes (conflicting types). Em C mais novo (C99 em diante) nem isso é aceito: a declaração implícita gera erro ou warning. E mesmo que compilasse, sem protótipo o float seria promovido a double na chamada, mas a função esperaria um float, e o resultado sairia errado. Ou seja, nenhuma verificação de parâmetros seria feita.
+
+c)
+
+O tipo da função celsius() é float. O tipo de uma função é o tipo do valor que ela devolve pelo return, porque é esse valor que a chamada passa a representar dentro da expressão (em c = celsius(f), a chamada vale um float). Os parâmetros só dizem o que entra na função, mas não dizem nada sobre o que sai. Uma função pode receber um float e devolver um int, ou não receber nada e devolver um float. Por isso o tipo vem do valor retornado, e não dos parâmetros recebidos.

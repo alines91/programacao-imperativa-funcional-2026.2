@@ -1,0 +1,17 @@
+a)
+
+- void exibe_mensagem(char* msg);  ->  tem 1 parâmetro de entrada (um ponteiro para char, ou seja, uma string) e não tem valor de retorno (void).
+- int obter_codigo(void);  ->  não tem parâmetros de entrada e tem valor de retorno do tipo int.
+- void limpar_tela(void);  ->  não tem parâmetros de entrada e não tem valor de retorno.
+
+b)
+
+Uma função com retorno calcula alguma coisa e devolve um valor, que quem chamou pode guardar numa variável ou usar dentro de uma expressão. Já um procedimento (função void) só executa uma ação e não devolve nada.
+
+Exemplo de quando usar cada um:
+- Função com retorno: calcular a média de três notas, porque o resultado vai ser usado depois (comparado, impresso, guardado).
+- Procedimento: exibir um menu ou limpar a tela, porque o que importa é o efeito (imprimir algo), e não existe nenhum valor para devolver.
+
+c)
+
+Não, x = limpar_tela(); não é válida. A função limpar_tela() é do tipo void, ou seja, não devolve valor nenhum, então não existe nada para ser guardado em x. O compilador dá erro (no gcc aparece algo como "void value not ignored as it ought to be"). O correto seria apenas chamar limpar_tela();.

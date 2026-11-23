@@ -1,0 +1,26 @@
+a)
+
+Saída:
+
+    25
+    8
+
+O #define faz só uma substituição de texto, antes da compilação, sem calcular nada antes.
+
+- SQR(2+3) vira ((2+3)*(2+3)), que dá 5 * 5 = 25. Os parênteses de proteção em volta de x garantem que a soma 2+3 seja feita primeiro.
+- DOBRO(2+3) vira 2+3*2. Sem parênteses, a multiplicação tem precedência sobre a soma, então fica 2 + (3*2) = 2 + 6 = 8, e não 10 como se esperava.
+
+b)
+
+O #define não termina com ponto e vírgula porque não é um comando da linguagem C, e sim uma diretiva do pré-processador, que vai até o fim da linha. Se colocarmos o ; ele passa a fazer parte do texto da substituição. Por exemplo, com #define PI 3.14; a expressão PI * r viraria 3.14; * r, o que dá erro de sintaxe.
+
+Por convenção usamos maiúsculas nos identificadores para diferenciar visualmente as macros e constantes das variáveis e funções, e assim quem lê o código percebe logo que aquilo vai ser substituído pelo pré-processador.
+
+c)
+
+#define PRN (n) printf("%d", n) está incorreto porque existe um espaço entre PRN e (n). Com o espaço, o pré-processador entende que PRN é uma macro sem argumentos, cujo texto de substituição é "(n) printf("%d", n)", o que não faz sentido. A forma correta é sem espaço:
+
+    #define PRN(n) printf("%d", n)
+
+Diferença entre macro com argumentos e função comum: a macro é substituída como texto pelo pré-processador, antes da compilação, então não há chamada, não há checagem de tipos dos argumentos e o argumento pode ser avaliado mais de uma vez (por exemplo, MAX(i++, j) pode incrementar i duas vezes). Já a função é compilada de verdade, tem tipos checados, o argumento é avaliado uma única vez e a chamada usa a pilha de execução.
+
